@@ -1,19 +1,18 @@
-import React from 'react';
-import FilmList from './FilmList';
-import FilmDetailes from './FilmDetailes';
-// import FilmRow from './FilmRow'
-import './App.css';
-import TMDB from './TMDB'
-
+import React from "react";
+import FilmList from "./FilmList";
+import FilmDetailes from "./FilmDetailes";
+import "./index.css";
+import "./normalize.css";
+import TMDB from "./TMDB";
 
 function App() {
   return (
-  <div className="film-library">
-  
-  <FilmList db={TMDB}/>
-  <FilmDetailes />
-  
-  </div>
+    <div className="film-library">
+      <div className="film-list">
+        <FilmList db={TMDB.films} />
+      </div>
+        <FilmDetailes />
+    </div>
   );
 }
 
