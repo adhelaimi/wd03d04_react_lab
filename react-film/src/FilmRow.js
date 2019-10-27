@@ -1,5 +1,6 @@
 import React from 'react'
 import FilmPoster from './FilmPoster'
+import Fave from "./Fave"
 const FilmRow = (props) => {
     
     return (
@@ -10,6 +11,8 @@ const FilmRow = (props) => {
     <h1>{props.filmTitle}</h1>
     <p>{props.filmDate}</p>
   </div>
+
+  <Fave/>
 </div>
     )
 }
