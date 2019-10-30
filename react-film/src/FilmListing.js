@@ -2,26 +2,36 @@ import React from "react";
 import FilmRow from "./FilmRow";
 import { Component } from "react";
 
-export default class FilmList extends Component {
+export default class FilmListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
       filter: "all"
     };
   }
+
   handleFilterClick = filter => {
-    this.setState ({
-      filter: filter
+    this.setState({
+      //es 6 syntax for making a key with the same name as the variable
+      filter
     });
     console.log(filter);
   };
   render() {
-    let allFilms = this.props.db.map((film, index) => (
+    const allFilms = this.props.films.map((film, index) => (
       <FilmRow
-        filmTitle={film.title}
-        filmId={film.id}
-        filmDate={new Date().getFullYear(film.release_date)}
-        filmPoster={film.poster_path}
+        film={film}
+        key={film.id}
+        onFaveToggle={() => this.props.onFaveToggle(film)}
+        isFave={this.props.faves.includes(film)}
+      />
+    ));
+    const faves = this.props.faves.map((film, index) => (
+      <FilmRow
+        film={film}
+        key={film.id}
+        onFaveToggle={() => this.props.onFaveToggle(film)}
+        isFave={this.props.faves.includes(film)}
       />
     ));
     return (
@@ -35,7 +45,7 @@ export default class FilmList extends Component {
             onClick={() => this.handleFilterClick("all")}
           >
             ALL
-            <span className="section-count">{this.props.db.length}</span>
+            <span className="section-count">{this.props.films.length}</span>
           </div>
           <div
             className={`film-list-filter ${
@@ -44,11 +54,11 @@ export default class FilmList extends Component {
             onClick={() => this.handleFilterClick("faves")}
           >
             FAVES
-            <span className="section-count">0</span>
+            <span className="section-count">{this.props.faves.length}</span>
           </div>
         </div>
 
-        {allFilms}
+        {this.state.filter === "faves" ? faves : allFilms}
       </div>
     );
   }
